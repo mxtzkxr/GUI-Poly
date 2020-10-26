@@ -6,6 +6,7 @@ import ru.smak.math.polynoms.Newton;
 import ru.smak.math.polynoms.Polynom;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Main {
@@ -22,19 +23,19 @@ public class Main {
         System.out.println(p3);
         System.out.println("P3(5)="+p3.invoke(5));
         System.out.println(p3.minus(p3));
-        var dots = new HashMap<Double, Double>(){{put(-1.0, 1.0); put(0.0, 0.0);}};
+        var dots = new LinkedHashMap<Double, Double>(){{put(-1.0, 1.0); put(0.0, 0.0);}};
         var newt = new Newton(dots);
         System.out.println(newt);
         dots.put(-1.0, 1.0);
-        newt.add(-1.0, 1.0);
+        newt.addPoint(-1.0, 1.0);
         System.out.println(newt);
         dots.put(0.0, 0.0);
-        newt.add(0.0, 0.0);
+        newt.addPoint(0.0, 0.0);
         System.out.println(newt);
         dots.put(1., 1.);
-        newt.add(1.0, 1.0);
+        newt.addPoint(1.0, 1.0);
         System.out.println(newt);
-        newt.add(1.0, 1.0);
+        newt.addPoint(1.0, 1.0);
         System.out.println(newt);
         var lagr = new Lagrange(dots);
         var newt2 = new Newton(dots);
