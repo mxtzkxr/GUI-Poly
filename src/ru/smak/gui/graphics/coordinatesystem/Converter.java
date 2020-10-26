@@ -11,7 +11,7 @@ public class Converter {
      * @param plane плоскость, для которой осуществляется преобразование
      * @return абсцисса точки в экранной системе координат
      */
-   public static int xCrt2Scr(double x, CartesianScreenPlane plane) {
+    public static int xCrt2Scr(double x, CartesianScreenPlane plane) {
         var r = (int)(plane.getXDen() * (x - plane.getXMin()));
         if (r < -plane.getWidth()) r = -plane.getWidth();
         if (r > 2 * plane.getWidth()) r = 2 * plane.getWidth();

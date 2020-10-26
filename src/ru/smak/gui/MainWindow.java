@@ -1,21 +1,26 @@
 package ru.smak.gui;
 
 import ru.smak.gui.graphics.CartesianPainter;
+import ru.smak.gui.graphics.PointPainter;
+import ru.smak.gui.graphics.PolynomPainter;
 import ru.smak.gui.graphics.components.ControlPanel;
 import ru.smak.gui.graphics.components.GraphicsPanel;
 import ru.smak.gui.graphics.coordinatesystem.CartesianScreenPlane;
+import ru.smak.gui.graphics.coordinatesystem.Converter;
 import ru.smak.gui.graphics.events.CPEvent;
+import ru.smak.math.polynoms.Newton;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.awt.event.*;
 
 public class MainWindow extends JFrame {
     GraphicsPanel mainPanel;
     ControlPanel controlPanel;
     CartesianPainter painter;
+    PointPainter ppp;
+    PolynomPainter np;
 
     static final Dimension MIN_SIZE = new Dimension(450, 350);
     static final Dimension MIN_FRAME_SIZE = new Dimension(600, 500);
@@ -66,7 +71,11 @@ public class MainWindow extends JFrame {
                 mainPanel.repaint();
             }
         });
+        mainPanel.addPainter(ppp);
+        var newt = new Newton();
         mainPanel.addPainter(painter);
+        mainPanel.addPainter(np);
+        np.setPolynom(newt);
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -74,6 +83,18 @@ public class MainWindow extends JFrame {
                 painter.getCSP().set_realWidth(mainPanel.getWidth());
                 painter.getCSP().set_realHeight(mainPanel.getHeight());
                 mainPanel.repaint();
+            }
+        });
+        mainPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(!ppp.pointExists(e.getX())){
+                    ppp.addPoint(e.getX(),e.getY());
+                    var cx = Converter.xScr2Crt(e.getX(),painter.getCSP());
+                    var cy = Converter.yScr2Crt(e.getY(),painter.getCSP());
+                    mainPanel.repaint();
+                    newt.addPoint(cx,cy);
+                }
             }
         });
 

@@ -25,8 +25,8 @@ public class CartesianPainter extends Painter{
                 Converter.xCrt2Scr(0, infa), Converter.yCrt2Scr(infa.getYMin(), infa));
         for (int i = (int)(getCSP().getXMin());i<getCSP().getXMax();i++){
             if (i!=0){
-            g.drawLine(Converter.xCrt2Scr(i,infa),Converter.yCrt2Scr(-0.1,infa),Converter.xCrt2Scr(i,infa),Converter.yCrt2Scr(0.1,infa));
-            g.drawString(""+i,Converter.xCrt2Scr(i-0.05,infa),Converter.yCrt2Scr(0.15,infa));
+                g.drawLine(Converter.xCrt2Scr(i,infa),Converter.yCrt2Scr(-0.1,infa),Converter.xCrt2Scr(i,infa),Converter.yCrt2Scr(0.1,infa));
+                g.drawString(""+i,Converter.xCrt2Scr(i-0.05,infa),Converter.yCrt2Scr(0.15,infa));
             }
         }
         for (int i = (int)(getCSP().getYMin());i<getCSP().getYMax();i++){
